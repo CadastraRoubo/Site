@@ -1,5 +1,7 @@
 // Default location
 var initialLocation = {
+    /*lat: -21.428673,
+    lng: -45.949417*/
     lat: 70,
     lng: -45.949417
 };
@@ -22,7 +24,24 @@ var markers;
 var markerCluster;
 
 // Store the server address and port
-var server = "https://node.uchiha.xyz";
+var server = "http://192.168.0.92:3000";
+
+// Locations for tests on map
+var locations = [
+        {lat: initialLocation.lat - 0.0002, lng: initialLocation.lng - 0.0002},
+        {lat: initialLocation.lat - 0.0001, lng: initialLocation.lng - 0.0001},
+        {lat: initialLocation.lat - 0.0003, lng: initialLocation.lng + 0.0002},
+        {lat: initialLocation.lat + 0.0002, lng: initialLocation.lng - 0.0005},
+        {lat: initialLocation.lat - 0.0005, lng: initialLocation.lng - 0.0004},
+        {lat: initialLocation.lat + 0.0001, lng: initialLocation.lng - 0.0002},
+        {lat: initialLocation.lat + 0.0003, lng: initialLocation.lng - 0.0008},
+        {lat: initialLocation.lat - 0.0001, lng: initialLocation.lng + 0.0004},
+        {lat: initialLocation.lat + 0.0005, lng: initialLocation.lng - 0.0001},
+        {lat: initialLocation.lat - 0.0002, lng: initialLocation.lng + 0.0008},
+        {lat: initialLocation.lat + 0.0006, lng: initialLocation.lng - 0.0009},
+        {lat: initialLocation.lat - 0.0009, lng: initialLocation.lng + 0.0004},
+        {lat: initialLocation.lat - 0.009, lng: initialLocation.lng + 0.004}
+      ]
 
 function addControl(nome, radi, func, icon, title) {
 
@@ -36,7 +55,6 @@ function addControl(nome, radi, func, icon, title) {
     controlUI.style.margin = '10px';
     controlUI.style.textAlign = 'center';
     controlUI.title = title;
-    //controlUI.className = "mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect";
     nome.appendChild(controlUI);
 
     // Set CSS for the control interior.
@@ -100,14 +118,8 @@ function aud(aaaa) {
             desc = "Sem descrição."
         }
         desc = desc.substr(0, 300);
-
-        //var tipo = document.querySelector('input[name="tipo"]:checked').value; // get the selected value
-        var tipo = document.getElementById('tipo').value; // get the selected value
-        if(!tipo){
-            tipo = "Não especificado."
-        }
-        tipo = tipo.substr(0, 50);
-
+        var tipo = document.querySelector('input[name="tipo"]:checked').value; // get the selected value
+        
         if (!Date.now) {
             // To IE8...
             Date.now = function() { return new Date().getTime(); }
@@ -137,8 +149,7 @@ function aud(aaaa) {
                             title: tipo,
                             descricao: desc,
                             id: newId(),
-                            _id: m._id,
-                            icon: './src/img/icon.png'
+                            _id: m._id
                         });
                         
                         markers.push(marker); // Add new marker to array of markers
@@ -147,10 +158,8 @@ function aud(aaaa) {
                             // Insert data from marker on form
                             document.getElementById("d-title").innerHTML = "Atualizar";
                             document.getElementById("desc").value = this.descricao;
-                            //document.querySelector('input[value="'+ this.title +'"]').checked = true;
-                            document.getElementById('tipo').value = this.title;
+                            document.querySelector('input[value="'+ this.title +'"]').checked = true;
                             dialog.id = this.id;
-                            document.getElementById("delete-btn").style.display = "inherit";
                             dialog.showModal();
                             dialog.addEventListener('close', aud);
                         });
@@ -170,8 +179,6 @@ function aud(aaaa) {
             
             add.open("POST", url ,true);
             add.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            add.setRequestHeader("access-token", accessToken);
-            add.setRequestHeader("user-id", id);
             add.send("lat="+ eventoAdd.latLng.lat() +"&lng="+ eventoAdd.latLng.lng() +"&date="+ data +"&type="+ tipo +"&desc="+ desc +"&facebook_id="+id);
         }
         else{
@@ -215,8 +222,6 @@ function aud(aaaa) {
             
             up.open("PUT", url ,true);
             up.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            up.setRequestHeader("access-token", accessToken);
-            up.setRequestHeader("user-id", id);
             up.send("&type="+ tipo +"&desc="+ desc);
         }
     }
@@ -263,8 +268,6 @@ function aud(aaaa) {
                 
                 del.open("DELETE", url ,true);
                 del.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                del.setRequestHeader("access-token", accessToken);
-                del.setRequestHeader("user-id", id);
                 del.send();
             }
             else{
@@ -278,9 +281,7 @@ function aud(aaaa) {
     dialog.removeEventListener("close", aud); 
     // Return elements to default state
     document.getElementById("desc").value = "";
-    //document.querySelector('input[value="Roubo"]').checked = true;
-    document.getElementById('tipo').value = "";
-    document.getElementById("delete-btn").style.display = "none";
+    document.querySelector('input[value="Roubo"]').checked = true;
     titulo.innerHTML = "Adicionar novo";
 }
 
@@ -443,27 +444,17 @@ function initMap() {
         'Diminuir zoom'
     );
 
-    // Create button to update the map
-    var updateDiv = document.createElement('div');
-    var updateBtn = new addControl(updateDiv, '100%', function(){
-        location.href = './app';},
-        '<i class="material-icons">refresh</i>',
-        'Atualizar dados'
-    );
-
     // Add buttons to map
     deleteDiv.index = 1;
     addDiv.index = 1;
     centerDiv.index = 2;
     zoomDiv.index = 3;
     zoomControlDiv.index = 4;
-    updateDiv.index = 5;
 
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(addDiv);
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(centerDiv);
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(zoomDiv);
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(zoomControlDiv);
-    map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(updateDiv);
 
     //  ------- Request json with markers to backend ---------
     var getMarkers = new XMLHttpRequest();
@@ -477,18 +468,15 @@ function initMap() {
                 title: pos.type,
                 descricao: pos.desc,
                 id: i,
-                _id: pos._id,
-                icon: './src/img/icon.png'
+                _id: pos._id
             });
             
             marker.addListener('click', function() {
                 // Insert data from marker on form
                 document.getElementById("d-title").innerHTML = "Atualizar";
                 document.getElementById("desc").value = this.descricao;
-                //document.querySelector('input[value="'+ this.title +'"]').checked = true;
-                document.getElementById('tipo').value = this.title;
+                document.querySelector('input[value="'+ this.title +'"]').checked = true;
                 dialog.id = this.id;
-                document.getElementById("delete-btn").style.display = "inherit";
                 dialog.showModal();
                 dialog.addEventListener('close', aud);
             });
