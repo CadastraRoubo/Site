@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Material Design Lite -->
+        <script src="./src/js/material.min.js"></script>
+        <link rel="stylesheet" href="./src/css/material.min.css">
+        <!-- Custom styles -->
+        <link rel="stylesheet" href="./src/css/style.css">
+        <script src="./src/js/resize.js"></script>
+        <!-- Material Design icon font -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <!-- Facebook api link -->
+        <script type="text/javascript" src="./src/js/fb.js"></script>
+        <title>Crimapp | Sobre</title>
+    </head>
+    <body>
+        <!-- Always shows a header, even in smaller screens. -->
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+            <header class="mdl-layout__header">
+                <div class="mdl-layout__header-row">
+                    <!-- Title -->
+                    <span class="mdl-layout-title title">Crimapp</span>
+                    <!-- Add spacer, to align navigation to the right -->
+                    <div class="mdl-layout-spacer"></div>
+                    <!-- Navigation. We hide it in small screens. -->
+                    <nav class="mdl-navigation mdl-layout--large-screen-only">
+                        <a class="mdl-navigation__link" href="./index">Início</a>
+                    </nav>
+                    <!-- Right aligned menu below button -->
+                    <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon" style="margin-right: -15px;">
+                        <i class="material-icons">person</i>
+                    </button>
+                    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
+                        <li id="login" class="mdl-menu__item">Login</li>
+                        <li id="sair" class="mdl-menu__item" style="display: none;">Sair</li>
+                    </ul>
+                </div>
+            </header>
+            <div class="mdl-layout__drawer mdl-layout--small-screen-only">
+                <span class="mdl-layout-title">Crimapp</span>
+                <nav class="mdl-navigation">
+                    <a class="mdl-navigation__link" href="./app">Início</a>
+                    <a class="mdl-navigation__link" href="./faq">F.A.Q.</a>
+                    <a class="mdl-navigation__link" href="./contato">Contato</a>
+                    <a class="mdl-navigation__link" href="./sobre">Sobre</a>
+                </nav>
+            </div>
+            <main class="mdl-layout__content" style="flex: 1 0 auto;">
+                <div class="page-content">
+                    <div class="mdl-grid about-fs">
+                        <div class="mdl-cell mdl-cell--12-col">
+                            <article class="mdl-article" style="text-align: center;">
+                                <img src="./src/img/logo1.png" style="min-width: 265px;width: 30.4%; margin: 10px 0px 20px 0px;">
+                                <p class="mdl-cell-content">
+                                    Quem nos dias atuais, não vive preocupado com a sua própria segurança? Todos, não é verdade?<br>
+                                    </p>
+                            </article>
+                        </div>
+                    </div>
+                    <div class="mdl-grid about-fs">
+                        <div class="mdl-cell mdl-cell--4-col">
+                            <center><img class="about-img" src="./src/img/map.png" width="100px" height="100px"></center>
+                            Crimapp é um projeto novo, que surgiu com intuito de mapear ocorrências de crimes, prevenindo as pessoas
+                            de possíveis locais, propensos a roubos, furtos e outros tipos de crimes.
+                        </div>
+                        <div class="mdl-cell mdl-cell--4-col">
+                            <center><img class="about-img" src="./src/img/crime.png" width="100px" height="100px"></center>
+                            Caso você seja uma vítima de algum tipo de crime poderá nos ajudar a manter 
+                            o aplicativo sempre atualizado, marcando o ponto da ocorrência no mapa, e assim 
+                            previnindo pessoas que irão passar ou que moram próximo a localidade.
+                        </div>
+                        <div class="mdl-cell mdl-cell--4-col">
+                            <center><img class="about-img" src="./src/img/student.png" width="100px" height="100px"></center>
+                            Construido por estudantes entusiastas do Bacharelado em Ciência da Computação 
+                            da UNIFAL-MG, tentando através da prevenção melhorar a segurança de muitos 
+                            cidadãos, contribuindo diretamente com as políticas públicas de segurança.
+                        </div>
+                    </div>
+                    <div class="mdl-grid about-fs">
+                        <div class="mdl-cell mdl-cell--12-col">
+                            <center>Já que o governo é incapaz de garantir nossa proteção, então vamos nós mesmos amenizar um pouco a situação.</center>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer class="mdl-mini-footer mdl-layout--large-screen-only">
+                <div class="mdl-mini-footer__left-section">
+                    <div class="mdl-logo">Copyright &copy 2017 Crimapp.</div>
+                </div>
+                <div class="mdl-mini-footer__right-section">    
+                    <ul class="mdl-mini-footer__link-list">
+                        <li><a href="sobre.html">Sobre</a></li>
+                        <li><a href="contato.html">Contato</a></li>
+                        <li><a href="faq.html">F.A.Q.</a></li>
+                    </ul>
+                </div>
+            </footer>
+        </div>
+    </body>
+</html>
