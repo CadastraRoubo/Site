@@ -35,9 +35,13 @@ function statusChangedCallback(response) {
         userConnected();
     }
     else if(response.status == 'not_authorized'){
+        accessToken = -1;
+        id = -1;
         alert("Faça login no ícone de usuário.");
     }
     else{
+        accessToken = -1;
+        id = -1;
         alert("Entre no Facebook para usar o site.");
     }
 }
@@ -49,6 +53,9 @@ window.fbAsyncInit = function () {
         xfbml: true,
         version: 'v2.9'
     });
+    FB.getLoginStatus(function (response) {
+        statusChangedCallback(response);
+    });
     FB.AppEvents.logPageView();
     btnlogin = document.getElementById('login')
     btnlogin.onclick = function () {
@@ -58,11 +65,8 @@ window.fbAsyncInit = function () {
         }, {scope: 'public_profile'});
         
     };
-    FB.getLoginStatus(function (response) {
-        statusChangedCallback(response);
-    });
+    
 };
-
 
 (function (d, s, id) {
     let js, fjs = d.getElementsByTagName(s)[0];
