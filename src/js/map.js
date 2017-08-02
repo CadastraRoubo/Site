@@ -22,7 +22,7 @@ var markers;
 var markerCluster;
 
 // Store the server address and port
-var server = "https://node.uchiha.xyz";
+var server = "http://node.uchiha.xyz";
 
 function addControl(nome, radi, func, icon, title) {
 
@@ -481,19 +481,43 @@ function initMap() {
                 icon: './src/img/icon.png'
             });
             
-            marker.addListener('click', function() {
-                // Insert data from marker on form
-                document.getElementById("d-title").innerHTML = "Atualizar";
-                document.getElementById("desc").value = this.descricao;
-                //document.querySelector('input[value="'+ this.title +'"]').checked = true;
-                document.getElementById('tipo').value = this.title;
-                dialog.id = this.id;
-                document.getElementById("delete-btn").style.display = "inherit";
-                dialog.showModal();
-                dialog.addEventListener('close', aud);
-            });
+            // Wait uid
+            whenAvailable("id", function(t) {
+                // Allow edit to user that created the marker
+                if(pos.facebook_id == id){
+                    marker.addListener('click', function() {
+                        
+                        // Insert data from marker on form
+                        document.getElementById("d-title").innerHTML = "Atualizar";
+                        document.getElementById("desc").value = this.descricao;
+                        //document.querySelector('input[value="'+ this.title +'"]').checked = true;
+                        document.getElementById('tipo').value = this.title;
+                        dialog.id = this.id;
+                        document.getElementById("delete-btn").style.display = "inherit";
+                        dialog.showModal();
+                        dialog.addEventListener('close', aud);
+                    });
+                }
+                // To others allow view
+                else{
+                    var contentString = '<div id="content" style="margin-top: -9px;">'+
+                        '<h4 id="firstHeading" class="firstHeading">Tipo: '+pos.type+'</43>'+
+                        '<div id="bodyContent" style="font-size: 14px;">Descrição: '+
+                        pos.desc+
+                        '</div>'+
+                        '</div>';
 
+                    var infowindow = new google.maps.InfoWindow({
+                        content: contentString
+                    });
+
+                    marker.addListener('click', function() {
+                        infowindow.open(map, marker);
+                    });
+                }
+            });
             return marker;
+            
         });
         // Add a marker clusterer to manage the markers.
         markerCluster = new MarkerClusterer(map, markers,

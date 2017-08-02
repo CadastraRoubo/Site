@@ -39,3 +39,15 @@ function getLocation(){
         alert("O seu navegador não suporta Geolocalização."); // muda isso depois
     }
 }
+
+// Check when some var is defined
+function whenAvailable(name, callback) {
+    var interval = 10; // ms
+    window.setTimeout(function() {
+        if (window[name]) {
+            callback(window[name]);
+        } else {
+            window.setTimeout(arguments.callee, interval);
+        }
+    }, interval);
+}
