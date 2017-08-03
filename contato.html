@@ -9,11 +9,14 @@
         <!-- Custom styles -->
         <link rel="stylesheet" href="./src/css/style.css">
         <script src="./src/js/resize.js"></script>
+        <script src="./src/js/mail.js"></script>
         <script src="./src/js/textfield.js"></script>
         <!-- Material Design icon font -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <!-- Facebook api link -->
         <script type="text/javascript" src="./src/js/fb.js"></script>
+        <!-- Google Captcha api -->
+        <script src='https://www.google.com/recaptcha/api.js'></script>
         <title>Crimapp | Contato</title>
     </head>
     <body>
@@ -51,10 +54,10 @@
             <main class="mdl-layout__content" style="flex: 1 0 auto;">
                 <div class="page-content">
                     <div class="mdl-grid">
-                        <div class="mdl-cell mdl-cell--6-col">
+                        <div class="mdl-cell mdl-cell--6-col" id="cpc">
                             <h3>Fale Conosco!</h3>
                             <p class="mdl-cell-content">Para esclarecer dúvidas, enviar sugestões ou críticas, preencha os campos abaixo.</p>
-                            <form autocomplete="off" id="formulario" action="#" method="post" >
+                            <form autocomplete="off" id="formulario" method="post" >
                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                     <input class="mdl-textfield__input" type="text" id="cfn" name="nome" required>
                                     <label class="mdl-textfield__label" for="cfn">Nome...</label>
@@ -77,7 +80,10 @@
                                     <textarea class="mdl-textfield__input" type="text" rows= "3" id="cfm" name="mensagem" required></textarea>
                                     <label class="mdl-textfield__label" for="cfm">Mensagem...</label>
                                 </div>
-                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" type="submit">
+                                <div style="margin-bottom: 20px;">
+									<div class="g-recaptcha" data-sitekey="6LfpfysUAAAAAD0Xnjpvf0zB84fVMPKVep4ajbnX"></div>
+                                </div>
+                                <button type="button" onclick="send()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
                                     Enviar
                                 </button>
                             </form>
