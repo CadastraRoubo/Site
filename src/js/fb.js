@@ -6,21 +6,9 @@ var id;
 var accessToken;
 var btnlogin;
 
-function fbLogoutUser() {
-    FB.getLoginStatus(function(response) {
-        if (response && response.status === 'connected') {
-            FB.logout(function(response) {
-                document.location.reload();
-            });
-        }
-    });
-}
-
 function userConnected(){
     FB.api('/me', function(response){
         document.getElementById("login").innerHTML = response.name;
-        document.getElementById("sair").onclick = function () { fbLogoutUser(); };
-        document.getElementById("sair").style.display = "inherit";
     });
     
 }
