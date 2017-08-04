@@ -22,7 +22,7 @@ var markers;
 var markerCluster;
 
 // Store the server address and port
-var server = "http://node.uchiha.xyz";
+var server = "https://api.crimapp.adriel.eu:3001";
 
 function addControl(nome, radi, func, icon, title) {
 
@@ -446,7 +446,7 @@ function initMap() {
     // Create button to update the map
     var updateDiv = document.createElement('div');
     var updateBtn = new addControl(updateDiv, '100%', function(){
-        location.href = './app';},
+        location.href = './index';},
         '<i class="material-icons">refresh</i>',
         'Atualizar dados'
     );

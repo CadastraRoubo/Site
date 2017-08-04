@@ -14,7 +14,7 @@ function send(){
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("cpc").innerHTML = ""
                 + "<h4>Agradecemos sua mensagem, ela sera respondida em breve.</h4>"
-                + "<a href='./app'>Voltar ao App</a>.";
+                + "<a href='./index'>Voltar ao App</a>.";
             }
             else if (this.readyState == 4 && this.status == 202) {
                 document.getElementById("cpc").innerHTML = ""

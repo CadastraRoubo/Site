@@ -1,12 +1,10 @@
 <?php
     require("./functions.php");
+    header('Access-Control-Allow-Origin: *');
     
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $nome = null; $email = null; $assunto = null; $mensagem = null; $captcha = null;
+        $nome = null; $email = null; $assunto = null; $mensagem = null;
 
-        if(isset($_POST['g-recaptcha-response'])){
-          $captcha=$_POST['g-recaptcha-response'];
-        }
         if(isset($_POST['nome'])){
           $nome=$_POST['nome'];
         }
@@ -21,7 +19,7 @@
         }
 
         // Check if all vars are setted
-        if(!$captcha || !$nome || !$email || !$assunto || !$mensagem){
+        if(!$nome || !$email || !$assunto || !$mensagem){
             http_response_code(202);
             echo "202 deu ruim";
             exit;
@@ -38,14 +36,6 @@
         $mensagem = testInput($_POST["mensagem"]);
         $mensagem = filter_var($mensagem, FILTER_SANITIZE_STRING);
         
-        $secretKey = "Sua key :D";
-        $ip = $_SERVER['REMOTE_ADDR'];
-        $response=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secretKey."&response=".$captcha."&remoteip=".$ip);
-        $responseKeys = json_decode($response,true);
-
-        if(intval($responseKeys["success"]) !== 1) {
-          $teste = false;
-        }
         if(!checkString($nome,50))
             $teste = false;
         if(!checkEmail($email))
